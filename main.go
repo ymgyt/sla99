@@ -23,9 +23,10 @@ type entry struct {
 
 func getEntries() []entry {
 	year := 1.0 * 60 * 60 * 24 * 365
+	nineNum := *max + 2
 
 	var entiries = make([]entry, 0, *max-1)
-	for i := 1; i < *max; i++ {
+	for i := 1; i < nineNum; i++ {
 		v := math.Pow(10, float64((i + 1)))
 		v = v - 1
 		upRate := float64(v) * (1 / math.Pow(10, float64((i+1))))
@@ -54,7 +55,7 @@ func showEntries(entries []entry) {
 
 	fmt.Fprintln(w, strings.Join(header(), "\t"))
 	for _, e := range entries {
-		fmt.Fprintf(w, "%."+strconv.Itoa(*max)+"f\t%f\t%f\t%f\n", e.rate, e.hour, e.minute, e.second)
+		fmt.Fprintf(w, "%."+strconv.Itoa(*max)+"f\t%f\t%f\t%f\n", e.rate*100, e.hour, e.minute, e.second)
 	}
 	w.Flush()
 }
